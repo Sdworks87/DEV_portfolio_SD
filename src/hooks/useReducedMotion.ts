@@ -1,10 +1,9 @@
-import { useReducedMotion as useFramerReducedMotion } from "motion/react";
+import { useMediaQuery } from "./useMediaQuery";
 
 /**
  * Custom hook to detect if the user prefers reduced motion.
- * Uses Framer Motion's hook under the hood.
+ * Uses the SSR-safe useMediaQuery hook under the hood.
  */
 export function useReducedMotion() {
-  const prefersReduced = useFramerReducedMotion();
-  return prefersReduced === true;
+  return useMediaQuery("(prefers-reduced-motion: reduce)");
 }

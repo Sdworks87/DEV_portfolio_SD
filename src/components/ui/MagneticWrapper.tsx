@@ -48,15 +48,11 @@ export function MagneticWrapper({ children, pull = 0.5 }: MagneticWrapperProps) 
     };
   }, [isHovered, x, y, pull, shouldReduceMotion]);
 
-  if (shouldReduceMotion) {
-    return <>{children}</>;
-  }
-
   return (
     <motion.div
       ref={ref}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => !shouldReduceMotion && setIsHovered(true)}
+      onMouseLeave={() => !shouldReduceMotion && setIsHovered(false)}
       style={{ x: springX, y: springY }}
       className="inline-block"
     >

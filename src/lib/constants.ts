@@ -39,6 +39,28 @@ export const siteMetadata = {
   resumeUrl: "#", // Placeholder for future downloadable resume
 };
 
+export const philosophyContent = {
+  heading: "Engineering is not just logic.",
+  subheading: "It is the invisible art of shaping the future.",
+  principles: [
+    {
+      id: "01",
+      title: "Precision",
+      description: "Code must be exact. Architecture must be deliberate. Every pixel and microsecond matters.",
+    },
+    {
+      id: "02",
+      title: "Performance",
+      description: "Speed is a feature. Fluidity is a requirement. Performance is the foundation of user trust.",
+    },
+    {
+      id: "03",
+      title: "Purpose",
+      description: "Technology without purpose is noise. Every line of code should exist to solve a problem or evoke an emotion.",
+    },
+  ],
+};
+
 export const navItems = [
   { name: "About", href: "#about" },
   { name: "Philosophy", href: "#philosophy" },

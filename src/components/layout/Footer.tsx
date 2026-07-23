@@ -49,7 +49,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
         
         {/* Copyright */}
-        <div className="text-text-secondary text-sm">
+        <div className="text-text-secondary text-sm" suppressHydrationWarning>
           &copy; {new Date().getFullYear()} {siteMetadata.developerName}. All rights reserved.
         </div>
 

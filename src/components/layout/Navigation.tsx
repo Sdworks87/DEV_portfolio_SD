@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, useScroll, useMotionValueEvent } from "motion/react";
+import { motion } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { navItems, siteMetadata } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -10,11 +10,15 @@ import { MagneticWrapper } from "../ui/MagneticWrapper";
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { scrollY } = useScroll();
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    setIsScrolled(latest > 50);
-  });
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Prevent scroll when mobile menu is open
   useEffect(() => {

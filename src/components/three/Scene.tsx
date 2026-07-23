@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useSyncExternalStore, useCallback } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Preload } from "@react-three/drei";
 import { ParticleField } from "./ParticleField";
@@ -39,12 +39,7 @@ function checkWebGL(): boolean {
   }
 }
 
-// WebGL support doesn't change at runtime, so we use a static external store
-const emptySubscribe = (callback: () => void) => {
-  // WebGL availability never changes, no need to subscribe
-  void callback;
-  return () => {};
-};
+
 
 /**
  * Scene — React Three Fiber canvas wrapper.
@@ -59,9 +54,12 @@ const emptySubscribe = (callback: () => void) => {
  * - Composes ParticleField and FloatingGrid
  */
 export function Scene() {
-  const getSnapshot = useCallback(() => checkWebGL(), []);
-  const getServerSnapshot = useCallback(() => false, []);
-  const hasWebGL = useSyncExternalStore(emptySubscribe, getSnapshot, getServerSnapshot);
+  const [hasWebGL, setHasWebGL] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setHasWebGL(checkWebGL());
+  }, []);
 
   if (!hasWebGL) {
     return <SceneFallback />;

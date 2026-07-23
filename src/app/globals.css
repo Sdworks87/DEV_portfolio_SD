@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@source "../";
 
 :root {
   --background: #070707;
@@ -10,21 +11,21 @@
   --border: rgba(255, 255, 255, 0.08);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-surface: var(--surface);
-  --color-primary: var(--primary);
-  --color-secondary: var(--secondary);
-  --color-text-primary: var(--text-primary);
-  --color-text-secondary: var(--text-secondary);
-  --color-border: var(--border);
+@theme {
+  --color-background: #070707;
+  --color-surface: #111111;
+  --color-primary: #4cc9f0;
+  --color-secondary: #7b61ff;
+  --color-text-primary: #f4f4f4;
+  --color-text-secondary: #a9a9a9;
+  --color-border: rgba(255, 255, 255, 0.08);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
 }
 
-body {
+html, body {
   background-color: var(--background);
   color: var(--text-primary);
   font-family: var(--font-sans);
@@ -62,17 +63,22 @@ body {
   border: 1px solid var(--border);
 }
 
-/* Reduces motion if user prefers it */
+/* Reduced motion: only affects CSS-based animations.
+   GSAP/JS animations are handled per-component via useReducedMotion hook. */
 @media (prefers-reduced-motion: reduce) {
   *,
   ::before,
   ::after {
-    animation-delay: -1ms !important;
-    animation-duration: 1ms !important;
-    animation-iteration-count: 1 !important;
-    background-attachment: initial !important;
     scroll-behavior: auto !important;
-    transition-duration: 0s !important;
-    transition-delay: 0s !important;
+    background-attachment: initial !important;
   }
+}
+
+/* Preloader Binary Rain Animation */
+@keyframes preloader-rain {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+.animate-preloader-rain {
+  animation: preloader-rain 40s linear infinite;
 }
